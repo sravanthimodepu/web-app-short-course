@@ -184,7 +184,7 @@ class TestEmail(TestCase):
 *** Definition
 #+BEGIN_SRC python :tangle ../../src/obj.py :eval no
 class User():
-    users = []     # this is a static variable, accessed by User.users
+    
 #+END_SRC
 
 
@@ -401,6 +401,42 @@ Note that =_set_user= is used internally by the
             'session': self.user.to_client()
         }
 #+END_SRC
+
+* System
+
+The =system= singleton object maintains the system
+variables: =user_set= and =session_set=.
+
+#+NAME: class_system
+#+begin_src python
+from sets import Set
+class System ():
+    user_set  = Set()
+    session_set = Set()
+
+    def __init__(self):
+        admin_user = User(name=Name("admin"), 
+                          email=Email("app-admin@vlabs.ac.in"), 
+                          role=Role.admin)
+        self.user_set.add(admin_user)
+#+end_src
+
+** Operations on =System= 
+*** =add_user=
+*** =del_user=
+*** =show_users=
+
+*** =get_user_by_email=
+*** =make_user=
+*** =get_email_of_user=
+*** =get_name_of_user=
+*** =get_role_of_user=
+*** =login=
+*** =del_session=
+*** =show_sessions=
+
+
+
 * Run Test Cases
  
 #+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no

@@ -298,102 +298,109 @@ class TestUser(TestCase):
 #+END_SRC
 
 
-
 ** Role
 
-*** Introduction
-   A Role has got certain privileges.  In this current application, the
-   privileges are understood 
-   
-   Different types of roles are:
-   - Admin :: An admin is an user who can add, modify and delete other users
-        except himself.
-   - User :: A User is a user who can view all other users and can modify himself.
-
-
-*** Mutable Data
-
-     These are the data associated with Role type, which are mutable
-
-     + Name
-
+   There are two types of roles in the application:
+   - Admin 
+   - User 
 
 *** Definition
-#+BEGIN_SRC python :tangle ../../src/obj.py :eval no
+#+NAME: class_Role
+#+BEGIN_SRC python
 class Role():
+    name = None
+    admin = None
+    user = None
 
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return self.name
+
+    def to_client(self):
+        return {
+            'role': self.name
+        }
+Role.admin = Role("admin")
+Role.user  = Role("user")
 #+END_SRC
 
+
+** Session
+    A session holds a user.
+#+NAME: class_Session
+#+BEGIN_SRC python
+class Session():
+    user = None
+#+END_SRC
 
 *** Constructor
-
-    The signature of Role is defined as follows
+    The signature of the Session constructor is:
     #+BEGIN_EXAMPLE
-    role = Role(name=<Object of Name>)
+    session = Session(user=<Object of User>)
     #+END_EXAMPLE
 
-#+BEGIN_SRC python :tangle ../../src/obj.py :eval no
+#+NAME: init_Session
+#+BEGIN_SRC python
     def __init__(self, **kwargs):
-        print "fill"
+        if 'user' not in kwargs:
+            raise AttributeRequired("user is mandatory")
+
+        self._set_user(kwargs['user'])
 #+END_SRC
 
-*** Test Constructor
-#+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no
-class TestRole(TestCase):
+
+**** Test Constructor
+#+NAME: class_TestSession
+#+BEGIN_SRC python
+class TestSession(TestCase):
     TESTING = True
-    def test_role_creation(self):
-        print "test_role_creation"
+
+    def setUp(self):
+        setup()
+
+    def tearDown(self):
+        tearDown()
+
+    def test_session_creation(self):
+        print "test_session_creation"
+        user = User(name=Name("Robin Smith"), 
+                    email=Email("smith@gmail.com"),
+                    role=Role.user)
+        session = Session(user=user)
+        self.assertEqual(session.user.role.name, "user")
 #+END_SRC
 
-
-*** Functions
-
-**** setName
-***** Implementation
-#+BEGIN_SRC python :tangle ../../src/obj.py :eval no
-    def set_name(self, name):
-        print "fill"
+*** Setters and Getters
+**** =get_user=
+#+NAME: session_get_user
+#+BEGIN_SRC python
+    def get_user(self):
+        return self.user
 #+END_SRC
 
-****** Test
-#+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no
-    def test_role_set_name(self):
-        print "test_role_set_name"
+**** =_set_user=
+Note that =_set_user= is used internally by the 
+=Session= constructor.
+
+#+NAME: session_set_user
+#+BEGIN_SRC python
+    def _set_user(self, user):
+        if not isinstance(user, User):
+            raise TypeError('`user` argument should be of type User.')
+        else:
+            self.user = user
 #+END_SRC
 
-
-**** getName
-
-#+BEGIN_SRC python :tangle ../../src/obj.py :eval no
-    def get_name(self):
-        print "fill"
-#+END_SRC
-
-
-**** getAll: Nil --> set[Role]
-
-***** Implementation
-#+BEGIN_SRC python :tangle ../../src/obj.py :eval no
-    @staticmethod
-    def get_all():
-#        return Role.roles
-        pass
-#+END_SRC
-
-
-***** Test getAll: Nil --> set[Role]
- #+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no
-    def test_role_get_all(self):
-        print "test_role_get_all"
- #+END_SRC
-
-
-**** to_client
-#+BEGIN_SRC python :tangle ../../src/obj.py :eval no
+**** =to_client=
+#+NAME: session_to_client
+#+BEGIN_SRC python
     def to_client(self):
-        print "fill"
+        return {
+            'session': self.user.to_client()
+        }
 #+END_SRC
-
 * Run Test Cases
  
 #+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no

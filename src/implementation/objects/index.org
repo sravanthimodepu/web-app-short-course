@@ -293,8 +293,8 @@ class TestUser(TestCase):
         print "test_user_creation"
         user = User(name=Name('Sravanthi'), email=Email('sravanthimodepu@vlabs.ac.in'), role=Role.admin)
         self.assertEqual(isinstance(user, User), True)
-        self.assertEqual(user.name, 'raghu')
-        self.assertEqual(user.email, 'raghupathi@vlabs.ac.in')
+        self.assertEqual(user.name, 'Sravanthi')
+        self.assertEqual(user.email, 'sravanthimodepu@vlabs.ac.in')
         self.assertEqual(user.role, 'admin')
  #+END_SRC
 
@@ -312,7 +312,7 @@ class TestUser(TestCase):
 #+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no
     def test_user_set_email(self):
         print "test_user_set_email"
-        user = User(name=Name('raghu'), email=Email('raghupathi@vlabs.ac.in'), role=Role.admin)
+        user = User(name=Name('Sravanthi'), email=Email('Sravanthimodepu@vlabs.ac.in'), role=Role.admin)
         new_email = Email('newemail@vlabs.ac.in')
         user.set_email(new_email)
         self.assertEqual(user.email, new_email.value)
@@ -327,7 +327,7 @@ class TestUser(TestCase):
 #+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no
     def test_user_set_name(self):
         print "test_user_set_name"
-        user = User(name=Name('raghu'), email=Email('raghupathi@vlabs.ac.in'), role=Role.admin)
+        user = User(name=Name('Sravanthi'), email=Email('sravanthimodepu@vlabs.ac.in'), role=Role.admin)
         new_name = Name('newname')
         user.set_name(new_name)
         self.assertEqual(user.name, new_name.value)
@@ -342,7 +342,7 @@ class TestUser(TestCase):
 #+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no
     def test_user_set_role(self):
         print "test_user_set_role"
-        user = User(name=Name('raghu'), email=Email('raghupathi@vlabs.ac.in'), role=Role.admin)
+        user = User(name=Name('Sravanthi'), email=Email('sravanthimodepu@vlabs.ac.in'), role=Role.admin)
         new_role = Role.user
         user.set_role(new_role)
         self.assertEqual(user.role, new_role.name)
@@ -357,7 +357,7 @@ class TestUser(TestCase):
 #+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no
     def test_user_get_role(self):
         print "test_user_get_role"
-        user = User(name=Name('raghu'), email=Email('raghu@vlabs.ac.in'), role=Role.admin)
+        user = User(name=Name('Sravanthi'), email=Email('sravanthimodepu@vlabs.ac.in'), role=Role.admin)
         self.assertEqual(user.get_role(), 'admin')
 #+END_SRC
 
@@ -372,8 +372,8 @@ class TestUser(TestCase):
 #+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no
     def test_user_get_email(self):
         print "test_user_get_email"
-        user = User(name=Name('raghu'), email=Email('raghupathi@vlabs.ac.in'), role=Role.admin)
-        self.assertEqual(user.get_email(), 'raghupathi@vlabs.ac.in')
+        user = User(name=Name('Sravanthi'), email=Email('sravanthimodepu@vlabs.ac.in'), role=Role.admin)
+        self.assertEqual(user.get_email(), 'sravanthimodepu@vlabs.ac.in')
 #+END_SRC
 
 **** getName
@@ -387,8 +387,8 @@ class TestUser(TestCase):
 #+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no
     def test_user_get_name(self):
         print "test_user_get_name"
-        user = User(name=Name('raghu'), email=Email('raghu@vlabs.ac.in'), role=Role.admin)
-        self.assertEqual(user.get_name(), 'raghu')
+        user = User(name=Name('Sravanthi'), email=Email('sravanthimodepu@vlabs.ac.in'), role=Role.admin)
+        self.assertEqual(user.get_name(), 'Sravanthi')
 #+END_SRC
 
 **** getAll: Nil --> set[User]
@@ -474,7 +474,7 @@ class TestSession(TestCase):
 #+BEGIN_SRC python :tangle ../../tests/test_obj.py :eval no
     def test_set_user_session(self):
         print "test_set_user_session"
-        user = User(name=Name('raghu'), email=Email('raghupathi@vlabs.ac.in'), role=Role.admin)
+        user = User(name=Name('Sravanthi'), email=Email('sravanthimodepu@vlabs.ac.in'), role=Role.admin)
         session = Session(user=user)
         new_user = User(name=Name('newuser'), email=Email('newuser@vlabs.ac.in'), role=Role.user)
         session._set_user_session(new_user)
